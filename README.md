@@ -29,13 +29,3 @@ Most readers can comfortably reach **2–3× their normal reading speed** with p
 - Can be added to your phone home screen like a native app
 
 This tool is especially useful for scanning long articles, dense study material, or daily reading where speed matters more than rereading lines.
-
----
-
-If you want, I can:
-- Make it sound more **scientific / academic**
-- Add a **short TL;DR**
-- Tailor it specifically for **CFA / study use**
-- Add a GIF demo section
-
-Just tell me what angle you want.
