@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Speed Reader ORP</title>
+
+<style>
+  body {
+    background: #111;
+    color: white;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  #word {
+    font-size: 72px;
+    font-weight: bold;
+    height: 90px;
+  }
+
+  .red {
+    color: red;
+  }
+
+  textarea, input, button {
+    margin-top: 12px;
+    width: 80%;
+    max-width: 600px;
+    font-size: 16px;
+  }
+
+  .controls {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+  }
+</style>
+</head>
+
+<body>
+
+<div id="word">Ready</div>
+
+<textarea id="text" rows="5" placeholder="Paste text here..."></textarea>
+<input type="number" id="wpm" value="300" min="100" max="1200">
+
+<div class="controls">
+  <button onclick="start()">Start</button>
+  <button onclick="pause()">Pause</button>
+  <button onclick="resume()">Resume</button>
+</div>
+
+<script>
+let words = [];
+let index = 0;
+let interval = null;
+let delay = 200;
+
+function highlightORP(word) {
+  const len = word.length;
+  const orpIndex = Math.floor(len / 2);
+
+  return word
+    .split("")
+    .map((char, i) =>
+      i === orpIndex ? `<span class="red">${char}</span>` : char
+    )
+    .join("");
+}
+
+function start() {
+  clearInterval(interval);
+  const text = document.getElementById("text").value.trim();
+  const wpm = document.getElementById("wpm").value;
+
+  if (!text) return;
+
+  words = text.split(/\s+/);
+  index = 0;
+  delay = 60000 / wpm;
+
+  run();
+}
+
+function run() {
+  interval = setInterval(() => {
+    if (index >= words.length) {
+      clearInterval(interval);
+      return;
+    }
+
+    document.getElementById("word").innerHTML =
+      highlightORP(words[index]);
+
+    index++;
+  }, delay);
+}
+
+function pause() {
+  clearInterval(interval);
+}
+
+function resume() {
+  clearInterval(interval);
+  run();
+}
+</script>
+
+</body>
+</html>
